@@ -1,15 +1,16 @@
-/* import { useEffect, useState } from 'react'
-import { requestData } from './requests' */
+import { useState } from 'react'
+import { requestData } from './requests'
 import { Outlet, Link } from 'react-router-dom'
 export const Home = () => {
-  /*  const [data, setData] = useState([])
+  const [inputValue, setInputValue] = useState('')
+  const [dataSearch, setDataSearch] = useState([])
 
-  useEffect(() => {
-    requestData().then((res) => {
-      console.log(res)
-      setData(res)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    requestData(inputValue).then((res) => {
+      setDataSearch(res.Search)
     })
-  }, []) */
+  }
 
   return (
     <>
@@ -22,30 +23,44 @@ export const Home = () => {
           />
           <h1 className='title-app'>Cinemaniáticos</h1>
         </section>
-        {/*  <div>
-        {data.map((movie, index) => (
-          <h1 key={index}>{movie}</h1>
-        ))}
-      </div> */}
-        <input
-          type='text'
-          placeholder='Search movie or serie...'
-          className='input-search'
-        />
+        <form action='submit'>
+          <input
+            type='text'
+            placeholder='Search movie or serie...'
+            onChange={(e) => setInputValue(e.target.value)}
+            className='input-search'
+          />
+          <button
+            type='submit'
+            name='inputValue'
+            onClick={handleSubmit}
+          >
+            S
+          </button>
+        </form>
         <nav className='nav-link'>
           <ul className='ul-link'>
             <li>
-              <Link className='li-link' to='/'>
+              <Link
+                className='li-link'
+                to='/'
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link className='li-link' to='/movies'>
+              <Link
+                className='li-link'
+                to='/movies'
+              >
                 Movies
               </Link>
             </li>
             <li>
-              <Link className='li-link' to='/series'>
+              <Link
+                className='li-link'
+                to='/series'
+              >
                 Series
               </Link>
             </li>
@@ -53,12 +68,24 @@ export const Home = () => {
         </nav>
         <Outlet />
       </header>
-
       <main className='background-home'>
-        <section>
-          <button>Hi</button>
-        </section>
+        {dataSearch
+          ? (<section>
+            {dataSearch.map((element) => (
+              <article key={element.imdbID}>
+                <h2>{element.Title}</h2>
+                <img
+                  src={element.Poster}
+                  alt='Poster'
+                />
+              </article>
+            ))}
+          </section>)
+          : null}
       </main>
+      <footer className='footer-app'>
+        <p>Cinemaniáticos.com © 2023</p>
+      </footer>
     </>
   )
 }

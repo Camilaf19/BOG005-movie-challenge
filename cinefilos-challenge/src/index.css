@@ -2,7 +2,7 @@
 
 #root {
   height: 100vh;
-   z-index: auto;
+  z-index: auto;
 }
 body {
   height: 100vh;
@@ -45,10 +45,10 @@ body {
   width: 30em;
   height: 2.5em;
   border-radius: 0.5em;
- /*  border: 1px solid rgba(0, 0, 0, 0.774); */
- border: none;
+  /*  border: 1px solid rgba(0, 0, 0, 0.774); */
+  border: none;
   padding: 0.2em 1.5em;
-  font-weight: 100;
+  font-weight: 50;
 }
 
 .nav-link {
@@ -81,4 +81,15 @@ body {
   /* background-color: #f4d03f; */
   height: 100vh;
   z-index: auto;
+}
+
+.footer-app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4em;
+  background-color: rgba(0, 0, 0, 0.938);
+  box-shadow: 2px 3px 6px #f4d03f;
+  color: aliceblue;
+  font-family: 'Mulish', sans-serif;
 }
