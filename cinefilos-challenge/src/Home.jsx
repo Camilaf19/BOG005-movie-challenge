@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-closing-tag-location */
+/* eslint-disable react/jsx-indent */
 import { useState } from 'react'
 import { requestData } from './requests'
 import { Outlet, Link } from 'react-router-dom'
@@ -69,19 +71,34 @@ export const Home = () => {
         <Outlet />
       </header>
       <main className='background-home'>
-        {dataSearch
-          ? (<section>
+        {!dataSearch.length ? (
+          <section>
+            <article>
+              <h5>hi</h5>
+            </article>
+          </section>
+        ) : (
+          <section className=' grid grid-cols-4 gap-1 place-items-center mt-8'>
             {dataSearch.map((element) => (
-              <article key={element.imdbID}>
-                <h2>{element.Title}</h2>
+              <article
+                key={element.imdbID}
+                className='object-cover w-52 h-80 shadow-xl rounded-md '
+              >
                 <img
+                  className='w-full h-3/4 rounded-t-md'
                   src={element.Poster}
                   alt='Poster'
                 />
+                <article className='bg-yellow-400 w-full h-1/5 flex flex-col justify-center items-center rounded-b-md'>
+                  <h2 className='text-white font-bold font-sans'>
+                    {element.Title}
+                  </h2>
+                  <button className='text-orange-700 font-extrabold font-sans text-xl'>+</button>
+                </article>
               </article>
             ))}
-          </section>)
-          : null}
+          </section>
+        )}
       </main>
       <footer className='footer-app'>
         <p>Cinemaniáticos.com © 2023</p>

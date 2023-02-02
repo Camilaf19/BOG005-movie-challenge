@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@700;900&family=Poppins:wght@500&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 #root {
   height: 100vh;
   z-index: auto;
@@ -15,7 +20,7 @@ body {
   justify-content: space-around;
   height: 6em;
   background-color: rgba(0, 0, 0, 0.877);
-  box-shadow: 2px 3px 6px #f4d03f;
+  box-shadow: 2px 3px 6px #f4d03f6e;
   z-index: 1;
   position: relative;
 }
