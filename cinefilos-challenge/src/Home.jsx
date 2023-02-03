@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable react/jsx-indent */
 import { useState } from 'react'
-import { requestData } from './requests'
+import { requestDataSearch } from './requests'
+import { CardsSearch } from './CardsSearch'
+import { CardsHome } from './CardsHome'
 import { Outlet, Link } from 'react-router-dom'
 export const Home = () => {
   const [inputValue, setInputValue] = useState('')
@@ -9,7 +11,7 @@ export const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    requestData(inputValue).then((res) => {
+    requestDataSearch(inputValue).then((res) => {
       setDataSearch(res.Search)
     })
   }
@@ -50,7 +52,7 @@ export const Home = () => {
                 Home
               </Link>
             </li>
-            <li>
+            {/*  <li>
               <Link
                 className='li-link'
                 to='/movies'
@@ -65,37 +67,21 @@ export const Home = () => {
               >
                 Series
               </Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
         <Outlet />
       </header>
       <main className='background-home'>
         {!dataSearch.length ? (
-          <section>
-            <article>
-              <h5>hi</h5>
-            </article>
-          </section>
+          <CardsHome />
         ) : (
-          <section className=' grid grid-cols-4 gap-1 place-items-center mt-8'>
+          <section className=' grid grid-cols-4 gap-1 place-items-center mt-8 h-screen'>
             {dataSearch.map((element) => (
-              <article
+              <CardsSearch
                 key={element.imdbID}
-                className='object-cover w-52 h-80 shadow-xl rounded-md '
-              >
-                <img
-                  className='w-full h-3/4 rounded-t-md'
-                  src={element.Poster}
-                  alt='Poster'
-                />
-                <article className='bg-yellow-400 w-full h-1/5 flex flex-col justify-center items-center rounded-b-md'>
-                  <h2 className='text-white font-bold font-sans'>
-                    {element.Title}
-                  </h2>
-                  <button className='text-orange-700 font-extrabold font-sans text-xl'>+</button>
-                </article>
-              </article>
+                element={element}
+              />
             ))}
           </section>
         )}
