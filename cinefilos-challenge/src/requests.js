@@ -21,3 +21,11 @@ export const requestDataSerieCardHome = () => {
     .then((response) => response.json())
     .then((data) => data)
 }
+
+export const requestDataMovies = () => {
+  const urlApi = 'http://www.omdbapi.com/?'
+  const keyApi = 'apikey=976526ea'
+  return fetch(urlApi + keyApi + '&type=movie' + '&page=1')
+    .then((response) => response.json())
+    .then((data) => data)
+}

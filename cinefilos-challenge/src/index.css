@@ -18,7 +18,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 6em;
+  height: 5em;
   background-color: rgba(0, 0, 0, 0.877);
   box-shadow: 2px 3px 6px #f4d03f6e;
   z-index: 1;
@@ -54,37 +54,11 @@ body {
   border: none;
   padding: 0.2em 1.5em;
   font-weight: 50;
-}
-
-.nav-link {
-  display: flex;
-  justify-content: center;
-  width: 10em;
-}
-
-.ul-link {
-  box-sizing: content-box;
-  width: 100%;
-  display: flex;
-  list-style-type: none;
-  justify-content: center;
-  width: 10em;
-  padding-inline-start: 0px;
-}
-
-.li-link {
-  font-family: 'Mulish', sans-serif;
-  justify-content: center;
-  text-decoration: none;
-  margin: 1.2em;
-  color: aliceblue;
-  font-weight: 700;
-  font-size: 1.1em;
+  font-size: 0.9em;
 }
 
 .background-home {
   /* background-color: #f4d03f; */
-  height: 100vh;
   z-index: auto;
 }
 

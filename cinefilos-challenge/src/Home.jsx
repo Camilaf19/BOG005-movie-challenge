@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { requestDataSearch } from './requests'
 import { CardsSearch } from './CardsSearch'
 import { CardsHome } from './CardsHome'
-import { Outlet, Link } from 'react-router-dom'
+
 export const Home = () => {
   const [inputValue, setInputValue] = useState('')
   const [dataSearch, setDataSearch] = useState([])
@@ -27,7 +27,10 @@ export const Home = () => {
           />
           <h1 className='title-app'>Cinemaniáticos</h1>
         </section>
-        <form action='submit'>
+        <form
+          action='submit'
+          className='relative'
+        >
           <input
             type='text'
             placeholder='Search movie or serie...'
@@ -39,44 +42,29 @@ export const Home = () => {
             name='inputValue'
             onClick={handleSubmit}
           >
-            S
+            <img
+              className='w-4 h-4 absolute inset-y-0 right-0  transform translate-y-2 -translate-x-2'
+              src='https://cdn-icons-png.flaticon.com/512/25/25313.png'
+              alt='search'
+            />
           </button>
         </form>
-        <nav className='nav-link'>
-          <ul className='ul-link'>
-            <li>
-              <Link
-                className='li-link'
-                to='/'
-              >
-                Home
-              </Link>
-            </li>
-            {/*  <li>
-              <Link
-                className='li-link'
-                to='/movies'
-              >
-                Movies
-              </Link>
-            </li>
-            <li>
-              <Link
-                className='li-link'
-                to='/series'
-              >
-                Series
-              </Link>
-            </li> */}
-          </ul>
-        </nav>
-        <Outlet />
+        <button
+          className='text-white font-bold text-lg'
+          onClick={() => {
+            setDataSearch([])
+          }}
+        >
+          Home
+        </button>
       </header>
       <main className='background-home'>
         {!dataSearch.length ? (
-          <CardsHome />
+          <section id='cards-home'>
+            <CardsHome />
+          </section>
         ) : (
-          <section className=' grid grid-cols-4 gap-1 place-items-center mt-8 h-screen'>
+          <section className='grid grid-cols-4 gap-1 place-items-center mt-8 h-screen'>
             {dataSearch.map((element) => (
               <CardsSearch
                 key={element.imdbID}
