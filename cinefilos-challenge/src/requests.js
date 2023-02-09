@@ -22,10 +22,10 @@ export const requestDataSerieCardHome = () => {
     .then((data) => data)
 }
 
-export const requestDataMovies = () => {
+export const requestDataMovies = (genderValue) => {
   const urlApi = 'http://www.omdbapi.com/?'
   const keyApi = 'apikey=976526ea'
-  return fetch(urlApi + keyApi + '&type=movie' + '&page=1')
+  return fetch(urlApi + keyApi + `&s=${genderValue}` + '&type=movie' + '&page=1')
     .then((response) => response.json())
     .then((data) => data)
 }

@@ -20,7 +20,7 @@ body {
   justify-content: space-around;
   height: 5em;
   background-color: rgba(0, 0, 0, 0.877);
-  box-shadow: 2px 3px 6px #f4d03f6e;
+  box-shadow: 3px 3px 6px #f4d03fa1;
   z-index: 1;
   position: relative;
 }

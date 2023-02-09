@@ -64,7 +64,7 @@ export const Home = () => {
             <CardsHome />
           </section>
         ) : (
-          <section className='grid grid-cols-4 gap-1 place-items-center mt-8 h-screen'>
+          <section className='grid grid-cols-5 gap-3 place-items-center my-8 h-full'>
             {dataSearch.map((element) => (
               <CardsSearch
                 key={element.imdbID}
