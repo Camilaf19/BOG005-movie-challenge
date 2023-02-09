@@ -8,14 +8,22 @@ import { CardsHome } from './CardsHome'
 export const Home = () => {
   const [inputValue, setInputValue] = useState('')
   const [dataSearch, setDataSearch] = useState([])
+  const [totalResults, setTotalResults] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    requestDataSearch(inputValue).then((res) => {
+    requestDataSearch(inputValue, currentPage).then((res) => {
       setDataSearch(res.Search)
+      setTotalResults(res.totalResults)
     })
   }
 
+  const totalResultsCut = parseInt(totalResults)
+  const pages = []
+  for (let i = 1; i <= Math.ceil(totalResultsCut / 10); i++) {
+    pages.push(i)
+  }
   return (
     <>
       <header className='header-app'>
@@ -64,14 +72,34 @@ export const Home = () => {
             <CardsHome />
           </section>
         ) : (
-          <section className='grid grid-cols-5 gap-3 place-items-center my-8 h-full'>
-            {dataSearch.map((element) => (
-              <CardsSearch
-                key={element.imdbID}
-                element={element}
-              />
-            ))}
-          </section>
+          <>
+            <section className='grid lg:grid-cols-5  sm:grid-cols-3 gap-3 place-items-center my-8 h-full'>
+              {dataSearch.map((element) => (
+                <CardsSearch
+                  key={element.imdbID}
+                  element={element}
+                />
+              ))}
+            </section>
+            <section className='flex justify-center mb-4 gap-2'>
+              {pages.map((page, index) => {
+                return (
+                  <button
+                    className='w-8 h-8 bg-stone-900 rounded-md text-white font-mono font-semibold shadow-lg hover:bg-orange-500'
+                    onClick={() => {
+                      setCurrentPage(page)
+                      requestDataSearch(inputValue, currentPage).then((res) => {
+                        setDataSearch(res.Search)
+                      })
+                    }}
+                    key={index}
+                  >
+                    {page}
+                  </button>
+                )
+              })}
+            </section>
+          </>
         )}
       </main>
       <footer className='footer-app'>

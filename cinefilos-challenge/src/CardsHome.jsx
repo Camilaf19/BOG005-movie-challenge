@@ -31,17 +31,20 @@ export const CardsHome = () => {
               <img
                 src={movieCard.Poster}
                 alt='Avatar'
-                className='h-full w-full object-cover object-center rounded-xl'
+                className='h-full w-full object-cover object-center rounded-xl '
               />
             </picture>
-            <h3 className='mt-6 text-sm text-gray-500'>
+            <h3 className='mt-6 text-sm text-gray-500 text-center'>
               <a href=''>Movies</a>
             </h3>
-            <p className='text-xl font-semibold text-gray-900'>
+            <p className='text-xl font-semibold text-gray-900 text-center'>
               All the movies you want!
             </p>
           </article>
           <article
+            onClick={() => {
+              navigate('/series')
+            }}
             key={serieCard.imdbID}
             className=' lg:max-h-92 lg:max-w-52 sm:max-h-92 sm:max-w-xs m-auto transform transition hover:-translate-y-4 cursor-pointer'
           >
@@ -52,10 +55,10 @@ export const CardsHome = () => {
                 className='h-full w-full object-cover object-center rounded-xl'
               />
             </picture>
-            <h3 className='mt-6 text-sm text-gray-500'>
+            <h3 className='mt-6 text-sm text-gray-500 text-center'>
               <a href=''>Series</a>
             </h3>
-            <p className='text-xl font-semibold text-gray-900'>
+            <p className='text-xl font-semibold text-gray-900 text-center'>
               What series are you looking for?
             </p>
           </article>

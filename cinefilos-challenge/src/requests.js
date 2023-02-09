@@ -1,7 +1,7 @@
-export const requestDataSearch = (inputValue) => {
+export const requestDataSearch = (inputValue, pageNumber) => {
   const urlApi = 'http://www.omdbapi.com/?'
   const keyApi = 'apikey=976526ea'
-  return fetch(urlApi + keyApi + `&s=${inputValue}` + '&page=1')
+  return fetch(urlApi + keyApi + `&s=${inputValue}` + `&page=${pageNumber}`)
     .then((response) => response.json())
     .then((data) => data)
 }
@@ -25,7 +25,19 @@ export const requestDataSerieCardHome = () => {
 export const requestDataMovies = (genderValue) => {
   const urlApi = 'http://www.omdbapi.com/?'
   const keyApi = 'apikey=976526ea'
-  return fetch(urlApi + keyApi + `&s=${genderValue}` + '&type=movie' + '&page=1')
+  return fetch(
+    urlApi + keyApi + `&s=${genderValue}` + '&type=movie' + '&page=1'
+  )
+    .then((response) => response.json())
+    .then((data) => data)
+}
+
+export const requestDataSeries = (genderValue) => {
+  const urlApi = 'http://www.omdbapi.com/?'
+  const keyApi = 'apikey=976526ea'
+  return fetch(
+    urlApi + keyApi + `&s=${genderValue}` + '&type=series' + '&page=1'
+  )
     .then((response) => response.json())
     .then((data) => data)
 }
