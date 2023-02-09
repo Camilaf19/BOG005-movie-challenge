@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { requestDataSearch } from './requests'
 import { CardsSearch } from './CardsSearch'
 import { CardsHome } from './CardsHome'
+import { Pagination } from './Pagination'
 
 export const Home = () => {
   const [inputValue, setInputValue] = useState('')
@@ -19,11 +20,25 @@ export const Home = () => {
     })
   }
 
+  const handleClick = (page) => setCurrentPage(page)
+
+  const handleSubmitPagination = (e) => {
+    e.preventDefault()
+    requestDataSearch(inputValue, currentPage).then((res) => {
+      setDataSearch(res.Search)
+    })
+  }
+
   const totalResultsCut = parseInt(totalResults)
   const pages = []
-  for (let i = 1; i <= Math.ceil(totalResultsCut / 10); i++) {
+  const limitPages = Math.ceil(totalResultsCut / 10)
+
+  for (let i = 1; i <= limitPages; i++) {
     pages.push(i)
   }
+
+  const pagesLimit = pages.length > 15 ? pages.slice(0, 15) : pages
+
   return (
     <>
       <header className='header-app'>
@@ -81,24 +96,11 @@ export const Home = () => {
                 />
               ))}
             </section>
-            <section className='flex justify-center mb-4 gap-2'>
-              {pages.map((page, index) => {
-                return (
-                  <button
-                    className='w-8 h-8 bg-stone-900 rounded-md text-white font-mono font-semibold shadow-lg hover:bg-orange-500'
-                    onClick={() => {
-                      setCurrentPage(page)
-                      requestDataSearch(inputValue, currentPage).then((res) => {
-                        setDataSearch(res.Search)
-                      })
-                    }}
-                    key={index}
-                  >
-                    {page}
-                  </button>
-                )
-              })}
-            </section>
+            <Pagination
+              handleClick={handleClick}
+              handleSubmitPagination={handleSubmitPagination}
+              pages={pagesLimit}
+            />
           </>
         )}
       </main>
