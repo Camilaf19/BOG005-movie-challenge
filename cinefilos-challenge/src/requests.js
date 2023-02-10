@@ -41,3 +41,11 @@ export const requestDataSeries = (genderValue) => {
     .then((response) => response.json())
     .then((data) => data)
 }
+
+export const requestDataDetails = (id) => {
+  const urlApi = 'http://www.omdbapi.com/?'
+  const keyApi = 'apikey=976526ea'
+  return fetch(urlApi + keyApi + `&i=${id}`)
+    .then((response) => response.json())
+    .then((data) => data)
+}

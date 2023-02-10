@@ -123,7 +123,8 @@ export const Movies = () => {
               ))}
             </section>
           </>
-        ) : (
+        )
+          : (
           <section className='grid grid-cols-5 gap-3 place-items-center my-8 h-full'>
             {dataSearch.map((element) => (
               <CardsSearch

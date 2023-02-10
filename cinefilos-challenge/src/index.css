@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 #root {
   height: 100vh;
   z-index: auto;
@@ -33,12 +32,12 @@ body {
 }
 
 .logo-app {
-  width: 4em;
-  height: 4em;
+  width: 3em;
+  height: 3em;
 }
 .title-app {
   margin-left: 0.4em;
-  font-size: 1.9em;
+  font-size: 1.6em;
   font-family: 'Mulish', sans-serif;
   font-weight: 900;
   color: aliceblue;

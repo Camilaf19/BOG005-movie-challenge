@@ -1,16 +1,20 @@
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable react/jsx-indent */
 import { useState } from 'react'
-import { requestDataSearch } from './requests'
+import { requestDataSearch, requestDataDetails } from './requests'
 import { CardsSearch } from './CardsSearch'
 import { CardsHome } from './CardsHome'
 import { Pagination } from './Pagination'
+import { Modal } from './Modal'
 
 export const Home = () => {
   const [inputValue, setInputValue] = useState('')
   const [dataSearch, setDataSearch] = useState([])
   const [totalResults, setTotalResults] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
+  const [details, setDetails] = useState({})
+  const [show, setShow] = useState(false)
+  const hideModal = () => setShow(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -38,6 +42,13 @@ export const Home = () => {
   }
 
   const pagesLimit = pages.length > 15 ? pages.slice(0, 15) : pages
+
+  const getDetails = (id) => {
+    requestDataDetails(id).then((res) => {
+      setDetails(res)
+      setShow(true)
+    })
+  }
 
   return (
     <>
@@ -87,12 +98,13 @@ export const Home = () => {
             <CardsHome />
           </section>
         ) : (
-          <>
+          <section className='relative'>
             <section className='grid lg:grid-cols-5  sm:grid-cols-3 gap-3 place-items-center my-8 h-full'>
               {dataSearch.map((element) => (
                 <CardsSearch
                   key={element.imdbID}
                   element={element}
+                  getDetails={getDetails}
                 />
               ))}
             </section>
@@ -101,7 +113,17 @@ export const Home = () => {
               handleSubmitPagination={handleSubmitPagination}
               pages={pagesLimit}
             />
-          </>
+            <section >
+              {show ? (
+                <Modal
+                  hideModal={hideModal}
+                  details={details}
+                />
+              ) : (
+                <div className='hidden'>h</div>
+              )}
+            </section>
+          </section>
         )}
       </main>
       <footer className='footer-app'>
