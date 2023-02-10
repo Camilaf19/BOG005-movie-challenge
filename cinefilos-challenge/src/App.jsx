@@ -1,11 +1,16 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Home } from './Home'
+import { Movies } from './Movies'
+import { Series } from './Series'
 
-function App() {
-
+export const App = () => {
   return (
-    <div className="App">
-      <h1>Cinéfilos</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='movies' element={<Movies />} />
+        <Route path='series' element={<Series />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-export default App
