@@ -1,7 +1,12 @@
-import { requestDataMovies, requestDataSearch } from './requests'
+import {
+  requestDataMovies,
+  requestDataSearch,
+  requestDataDetails
+} from './requests'
 import { CardsSearch } from './CardsSearch'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Modal } from './Modal'
 
 export const Movies = () => {
   const [inputValue, setInputValue] = useState('')
@@ -9,10 +14,13 @@ export const Movies = () => {
   const [dataSearch, setDataSearch] = useState([])
   const [movies, setMovies] = useState([])
   const navigate = useNavigate()
+  const [details, setDetails] = useState({})
+  const [show, setShow] = useState(false)
+  const hideModal = () => setShow(false)
 
   const classBackground = !genderValue.length
     ? 'h-screen'
-    : 'grid grid-cols-5 gap-3 place-items-center my-8 h-full'
+    : 'grid lg:grid-cols-5  sm:grid-cols-3 gap-3 place-items-center my-8 h-full'
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -24,6 +32,12 @@ export const Movies = () => {
     e.preventDefault()
     requestDataMovies(genderValue).then((res) => {
       setMovies(res.Search)
+    })
+  }
+  const getDetails = (id) => {
+    requestDataDetails(id).then((res) => {
+      setDetails(res)
+      setShow(true)
     })
   }
 
@@ -114,17 +128,29 @@ export const Movies = () => {
                 Horror
               </button>
             </form>
-            <section className={classBackground}>
-              {movies.map((element) => (
-                <CardsSearch
-                  key={element.imdbID}
-                  element={element}
-                />
-              ))}
+            <section className='relative'>
+              <section className={classBackground}>
+                {movies.map((element) => (
+                  <CardsSearch
+                    key={element.imdbID}
+                    element={element}
+                    getDetails={getDetails}
+                  />
+                ))}
+              </section>
+              <section>
+                {show ? (
+                  <Modal
+                    hideModal={hideModal}
+                    details={details}
+                  />
+                ) : (
+                  <div className='hidden'>h</div>
+                )}
+              </section>
             </section>
           </>
-        )
-          : (
+        ) : (
           <section className='grid grid-cols-5 gap-3 place-items-center my-8 h-full'>
             {dataSearch.map((element) => (
               <CardsSearch

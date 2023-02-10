@@ -1,7 +1,12 @@
-import { requestDataSeries, requestDataSearch } from './requests'
+import {
+  requestDataSeries,
+  requestDataSearch,
+  requestDataDetails
+} from './requests'
 import { CardsSearch } from './CardsSearch'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Modal } from './Modal'
 
 export const Series = () => {
   const [inputValue, setInputValue] = useState('')
@@ -9,10 +14,13 @@ export const Series = () => {
   const [dataSearch, setDataSearch] = useState([])
   const [series, setSeries] = useState([])
   const navigate = useNavigate()
+  const [details, setDetails] = useState({})
+  const [show, setShow] = useState(false)
+  const hideModal = () => setShow(false)
 
   const classBackground = !genderValue.length
     ? 'h-screen'
-    : 'grid grid-cols-5 gap-3 place-items-center my-8 h-full'
+    : 'grid lg:grid-cols-5  sm:grid-cols-3 gap-3 place-items-center my-8 h-full'
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -24,6 +32,13 @@ export const Series = () => {
     e.preventDefault()
     requestDataSeries(genderValue).then((res) => {
       setSeries(res.Search)
+    })
+  }
+
+  const getDetails = (id) => {
+    requestDataDetails(id).then((res) => {
+      setDetails(res)
+      setShow(true)
     })
   }
 
@@ -114,13 +129,26 @@ export const Series = () => {
                 Horror
               </button>
             </form>
-            <section className={classBackground}>
-              {series.map((element) => (
-                <CardsSearch
-                  key={element.imdbID}
-                  element={element}
-                />
-              ))}
+            <section className='relative'>
+              <section className={classBackground}>
+                {series.map((element) => (
+                  <CardsSearch
+                    key={element.imdbID}
+                    element={element}
+                    getDetails={getDetails}
+                  />
+                ))}
+              </section>
+              <section>
+                {show ? (
+                  <Modal
+                    hideModal={hideModal}
+                    details={details}
+                  />
+                ) : (
+                  <div className='hidden'>h</div>
+                )}
+              </section>
             </section>
           </>
         ) : (

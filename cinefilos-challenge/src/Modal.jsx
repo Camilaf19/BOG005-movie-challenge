@@ -1,6 +1,6 @@
 export const Modal = ({ details, hideModal }) => {
   return (
-    <section className='absolute inset-y-24 inset-x-1/4 w-2/4 lg:h-9/12 sm:h-6/12 bg-slate-900 rounded-lg shadow-2xl shadow-stone-900'>
+    <section className='absolute inset-y-24 inset-x-1/4 h-3/4 w-2/4 lg:h-10/12 sm:h-8/12 bg-slate-900 rounded-lg shadow-2xl shadow-stone-900'>
       <h3 className='text-white font-bold font-sans text-xl text-center my-2'>
         {details.Title}
       </h3>

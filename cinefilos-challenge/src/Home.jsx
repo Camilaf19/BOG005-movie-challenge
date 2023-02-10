@@ -113,7 +113,7 @@ export const Home = () => {
               handleSubmitPagination={handleSubmitPagination}
               pages={pagesLimit}
             />
-            <section >
+            <section>
               {show ? (
                 <Modal
                   hideModal={hideModal}
